@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Main container */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 450px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+h1 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Text area */
+textarea {
+    width: 100%;
+    height: 120px;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 14px;
+}
+
+/* Button */
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #667eea;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5a67d8;
+}
+
+/* Result box */
+#resultBox {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f1f1f1;
+}
+
+/* Hidden class */
+.hidden {
+    display: none;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>📰 Fake News Detection System</h1>
+        <p>Enter news content below to check if it's real or fake.</p>
+
+        <textarea id="newsInput" placeholder="Paste your news/article here..."></textarea>
+
+        <button onclick="checkNews()">Check News</button>
+
+        <div id="resultBox" class="hidden">
+            <h2>Result:</h2>
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+        function checkNews() {
+            const input = document.getElementById("newsInput").value;
+            const resultBox = document.getElementById("resultBox");
+            const resultText = document.getElementById("resultText");
+
+            if (input.trim() === "") {
+                alert("Please enter some news text!");
+                return;
+            }
+
+            resultText.innerHTML = "⏳ Analyzing...";
+            resultBox.classList.remove("hidden");
+
+            // Send request to Flask API
+            fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ news: input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    resultText.innerHTML = `❌ Error: ${data.error}`;
+                    resultText.style.color = "red";
+                } else {
+                    const isReal = data.prediction === "Real News";
+                    const icon = isReal ? "✅" : "❌";
+                    const color = isReal ? "green" : "red";
+                    
+                    resultText.innerHTML = `${icon} This looks like <strong>${data.prediction}</strong><br>Confidence: ${data.confidence}%`;
+                    resultText.style.color = color;
+                }
+            })
+            .catch(error => {
+                resultText.innerHTML = `❌ Connection Error: Make sure Flask is running on http://localhost:5000`;
+                resultText.style.color = "red";
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>
